@@ -460,7 +460,11 @@ export async function createAutomatedJob(
 
       // userId должен быть в канале
       if (!channel.userId) {
-        logger?.error("Channel has no userId, cannot create job")
+        await logger?.logEvent({
+          level: "error",
+          step: "other",
+          message: "Channel has no userId, cannot create job",
+        });
         throw new Error(`Канал ${channel.id} не имеет userId`)
       }
 
